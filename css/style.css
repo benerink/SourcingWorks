@@ -1,0 +1,501 @@
+/* Grundlegende Einstellungen */
+:root {
+    --primary-color: #1a2b3c; /* Dunkles Marineblau */
+    --accent-color: #c5a059;  /* Dezentes Gold/Beige für Akzente */
+    --text-color: #333333;
+    --bg-light: #f4f7f9;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--white);
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Sticky Header */
+.sticky-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 15px 0;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    letter-spacing: 1px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+/* Sektionen Styling */
+section {
+    padding: 80px 0;
+}
+
+/* --- Hero-Abschnitt: Klassisch mit Hintergrund-Animation --- */
+
+#hero {
+    position: relative;
+    background: linear-gradient(315deg, #1a2b3c 3%, #2c3e50 38%, #34495e 68%, #16222f 98%);
+    background-size: 400% 400%;
+    animation: consultingGradientShift 15s ease infinite;
+    color: var(--white);
+    text-align: center;
+    padding: 160px 0;
+    overflow: hidden;
+    z-index: 1;
+}
+
+@keyframes consultingGradientShift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+}
+
+#hero h1 {
+    font-size: 2.8rem; /* Reduziert für 1920x1080 Monitore */
+    margin-bottom: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: none; /* Entfernt Capslock für ein seriöseres Bild */
+}
+
+#hero p {
+    font-size: 1.25rem; /* Harmonischere Größe zum Titel */
+    max-width: 750px;
+    margin: 0 auto 35px auto;
+    opacity: 0.9;
+}
+
+/* Entfernen Sie alle alten CSS-Regeln für #flip-container, #flip und @keyframes flipScroll */
+
+.btn {
+    display: inline-block;
+    background: var(--accent-color);
+    color: var(--white);
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 20px;
+}
+
+/* Grid für Leistungen */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+article {
+    padding: 30px;
+    background: var(--bg-light);
+    border-radius: 8px;
+    border-top: 4px solid var(--primary-color);
+}
+
+/* Über mich Sektion Styling (Neu) */
+#ueber-mich {
+    background-color: var(--bg-light); /* Leichter Kontrast zum Rest der Seite */
+}
+
+.about-content {
+    display: flex;
+    align-items: center; /* Zentriert Bild und Text vertikal zueinander */
+    gap: 50px; /* Erzeugt einen sauberen Abstand zwischen Bild und Text */
+    margin-top: 40px;
+}
+
+.about-image-wrapper {
+    flex: 0 0 350px; /* Verhindert, dass der Container wächst, feste Breite */
+    max-width: 350px;
+}
+
+.about-image-wrapper img {
+    width: 100%; /* Das Bild füllt den 350px breiten Container */
+    height: auto; /* Behält das Seitenverhältnis bei (sehr wichtig für 672x983) */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    object-fit: cover; /* Sorgt dafür, dass das Bild auch bei veränderten Maßen gut aussieht */
+}
+
+.about-text-wrapper {
+    flex: 1; /* Nimmt den restlichen verfügbaren Platz im Flex-Container ein */
+}
+
+.about-text-wrapper h3 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.about-text-wrapper p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* Responsive Anpassung für Mobilgeräte */
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column; /* Stapelt Bild und Text untereinander */
+        text-align: center;
+        gap: 30px;
+    }
+
+    .about-image-wrapper {
+        flex: 0 0 auto;
+        max-width: 250px; /* Verkleinert das Bild auf mobilen Endgeräten */
+        margin: 0 auto;
+    }
+}
+
+/* Kontakt Sektion Styling */
+.contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.contact-card {
+    background: var(--white);
+    padding: 30px;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #e1e8ed;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.contact-card h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.contact-card a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.contact-cta {
+    text-align: center;
+}
+
+/* Footer im Design des Headers */
+.main-footer {
+    background-color: var(--white);
+    padding: 30px 0;
+    border-top: 1px solid #eee;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05); /* Schatten nach oben */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.footer-nav ul li {
+    margin-left: 20px;
+}
+
+.footer-nav ul li a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-nav ul li a:hover {
+    color: var(--accent-color);
+}
+
+.copyright {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .footer-nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .footer-nav ul li {
+        margin-left: 0;
+    }
+}
+
+
+/* ... (Bestehende CSS-Regeln) ... */
+
+/* Optimierung des Leistungs-Grids für 6 Elemente */
+.grid {
+    display: grid;
+    /* Erzeugt ein 3x2 Raster auf Desktops, 2x3 auf Tablets, 1 Spalte auf Mobils */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+/* --- Unendliches Logo-Laufband (Neu) --- */
+
+#partner {
+    background-color: var(--white);
+    padding: 80px 0;
+    overflow: hidden; /* Wichtig: Verhindert Scrollbalken */
+}
+
+#partner h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    color: var(--primary-color);
+}
+
+.logo-slider {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Der Container, der sich bewegt */
+.logo-slider-track {
+    display: flex;
+    /* Berechnete Breite: (Anzahl Logos * Breite) + (Anzahl Gaps * Gap-Breite) */
+    /* Hier: (12 * 200px) + (11 * 40px) = 2840px. Wir nutzen calc() für Flexibilität */
+    width: calc(12 * 240px); /* 12 Slides * (200px + 40px gap) */
+    gap: 40px; /* Abstand zwischen den Logos */
+
+    /* Animation aufrufen: Dauer 40s, linear, unendlich */
+    animation: scrollLogos 40s linear infinite;
+}
+
+/* Stoppt die Animation beim Hover */
+.logo-slider-track:hover {
+    animation-play-state: paused;
+}
+
+/* Einzelner Slide-Container */
+.slide {
+    flex: 0 0 200px; /* Feste Breite pro Logo-Container */
+    width: 200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide img {
+    max-height: 70px; /* Maximale Höhe des Logos */
+    max-width: 100%; /* Verhindert Überlaufen */
+    height: auto;
+    width: auto;
+    filter: grayscale(100%); /* Professioneller Look */
+    opacity: 0.6;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.slide img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+/* Definition der unendlichen Scroll-Animation */
+@keyframes scrollLogos {
+    0% {
+        /* Startposition */
+        transform: translateX(0);
+    }
+    100% {
+        /* Endposition: Exakt die Hälfte der Track-Breite nach links verschieben */
+        /* calc(Anzahl Original-Logos * -(LogoBreite + Gap)) */
+        transform: translateX(calc(6 * -240px));
+    }
+}
+
+/* Mobile Anpassungen */
+@media (max-width: 768px) {
+    .slide {
+        flex: 0 0 150px; /* Kleinere Logos auf Mobilgeräten */
+        width: 150px;
+    }
+
+    .logo-slider-track {
+        gap: 20px;
+        /* Anpassung der Breite für mobile Maße */
+        width: calc(12 * 170px); /* 12 * (150px + 20px gap) */
+    }
+
+    @keyframes scrollLogos {
+        100% {
+            /* Anpassung der Verschiebung für mobile Maße */
+            transform: translateX(calc(6 * -170px));
+        }
+    }
+}
+
+/* --- Breitbild-Optimierung für den symmetrischen Slider --- */
+
+.container-wide {
+    max-width: 1400px; /* Erweitert für weniger "gequetschte" Optik */
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.horizontal-slider-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.arrow-tip-btn {
+    background: none;
+    border: none;
+    color: #b0b0b0;
+    font-size: 5rem; /* Größer für das breite Layout */
+    cursor: pointer;
+    transition: color 0.3s;
+    flex-shrink: 0;
+    user-select: none;
+}
+
+.arrow-tip-btn:hover {
+    color: #888;
+}
+
+.slider-perspective {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* WIEDERHERGESTELLTE VERBLASSUNG AN DEN BREITEREN RÄNDERN */
+.slider-perspective::before,
+.slider-perspective::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 20%; /* Breite des Verblassungs-Bereichs, jetzt symmetrisch */
+    height: 100%;
+    z-index: 5;
+    pointer-events: none; /* Klicks gehen durch auf die Karten */
+}
+
+.slider-perspective::before {
+    left: 0;
+    background: linear-gradient(to right, var(--white) 0%, rgba(255,255,255,0) 100%);
+}
+
+.slider-perspective::after {
+    right: 0;
+    background: linear-gradient(to left, var(--white) 0%, rgba(255,255,255,0) 100%);
+}
+
+.slider-track {
+    display: flex;
+    gap: 30px;
+    padding: 30px 0;
+    will-change: transform;
+    /* WICHTIG: Kein scroll-snap, da JS steuert */
+    scroll-snap-type: none;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide-item {
+    /* REDUZIERTE BREITE FÜR SYMMETRISCHE RÄNDER */
+    flex: 0 0 calc(27% - 15px); /* Drei Elemente stehen vollständig im Fokus, Ränder sind frei */
+    padding: 40px;
+    background: var(--bg-light);
+    border-radius: 8px;
+    border-top: 5px solid var(--primary-color);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+    box-sizing: border-box;
+    text-align: left;
+}
+
+/* Responsive Anpassung für kleinere Bildschirme */
+@media (max-width: 1200px) {
+    .slide-item { flex: 0 0 45%; }
+}
+
+@media (max-width: 768px) {
+    .slide-item { flex: 0 0 100%; }
+    .arrow-tip-btn { font-size: 3rem; }
+    .slider-perspective::before,
+    .slider-perspective::after {
+        width: 10%; /* Weniger Verblassung auf Handys */
+    }
+}
