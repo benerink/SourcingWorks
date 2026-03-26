@@ -498,6 +498,20 @@ article {
     text-align: left;
 }
 
+/* Grundzustand: Auf dem Desktop immer versteckt */
+.burger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 22px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
 /* Responsive Anpassung für kleinere Bildschirme */
 @media (max-width: 1200px) {
     .slide-item { flex: 0 0 45%; }
