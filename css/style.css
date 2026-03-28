@@ -70,6 +70,12 @@ body {
     transition: max-height 0.3s ease; /* Optional: Sanfte Größenanpassung */
 }
 
+@media (max-width: 768px) {
+    .logo-image {
+        max-height: 30px;
+    }
+}
+
 /* Präzise vertikale Zentrierung im Header */
 .header-content {
     display: flex;
