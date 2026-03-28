@@ -13,6 +13,15 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+section {
+    /* Verhindert, dass der Sticky Header den Sektionsanfang verdeckt */
+    scroll-margin-top: 80px;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -35,6 +44,30 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     padding: 15px 0;
+}
+
+/* --- NEUES LOGO BILD-STYLING (ersetzt Text-Styling) --- */
+.main-header {
+    /* Behalten Sie align-items: center bei, um Logo und Nav zu zentrieren */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Optional: Passen Sie das vertikale Padding an */
+}
+
+.logo {
+    display: flex;
+    align-items: center; /* Interne vertikale Zentrierung */
+    flex-shrink: 0; /* Verhindert das Zusammenziehen des Logos */
+    margin-right: 20px; /* Abstand zur Navigation */
+    padding: 0;
+}
+
+.logo-image {
+    max-height: 50px; /* Begrenzt die Höhe des Logos im Header */
+    width: auto;      /* Erhält das Seitenverhältnis */
+    display: block;   /* Verhindert whitespace-Lücken */
+    transition: max-height 0.3s ease; /* Optional: Sanfte Größenanpassung */
 }
 
 /* Präzise vertikale Zentrierung im Header */
@@ -71,13 +104,6 @@ nav ul li a {
     display: block;
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    letter-spacing: 1px;
-}
-
 nav ul li a:hover {
     color: var(--accent-color);
 }
@@ -90,15 +116,41 @@ section {
 /* --- Hero-Abschnitt: Klassisch mit Hintergrund-Animation --- */
 
 #hero {
-    position: relative;
-    background: linear-gradient(315deg, #1a2b3c 3%, #2c3e50 38%, #34495e 68%, #16222f 98%);
-    background-size: 400% 400%;
-    animation: consultingGradientShift 15s ease infinite;
+    position: relative; /* Wichtig für die Positionierung des Videos */
+    /* Entfernen Sie das alte background-gradient, falls das Video lädt */
+    /* background: linear-gradient(...); */
+    overflow: hidden; /* Verhindert, dass das Video übersteht */
+}
+/* --- Fix für die Textanzeige im Hero-Bereich --- */
+#hero .hero-content {
+    /* Setzt die Textfarbe für h1, p sowie den Button-Text auf weiß */
     color: var(--white);
+    /* Zentriert den Text horizontal innerhalb des Containers */
     text-align: center;
-    padding: 160px 0;
-    overflow: hidden;
-    z-index: 1;
+}
+
+/* --- Optional: Feinabstimmung für h1 sowie p --- */
+#hero h1 {
+    color: var(--white);
+    margin-bottom: 20px; /* Abstand nach unten */
+}
+
+#hero p {
+    color: var(--white);
+    max-width: 700px; /* Verhindert zu lange Textzeilen auf Desktop */
+    margin: 0 auto 30px auto; /* Zentriert den p-Block & gibt Abstand nach unten */
+}
+
+.back-video {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; /* Schiebt das Video hinter den Inhalt */
+    object-fit: cover; /* Sorgt dafür, dass das Video den Container füllt */
+    /* OPTIONAL: Ein dunkles Overlay, damit der Text lesbar bleibt */
+    filter: brightness(0.6);
 }
 
 @keyframes consultingGradientShift {
@@ -167,8 +219,8 @@ article {
 }
 
 .about-image-wrapper {
-    flex: 0 0 350px; /* Verhindert, dass der Container wächst, feste Breite */
-    max-width: 350px;
+    flex: 0 0 450px; /* Von 350px auf 450px erhöht */
+    max-width: 450px;
 }
 
 .about-image-wrapper img {
@@ -419,83 +471,100 @@ article {
     }
 }
 
-/* --- Breitbild-Optimierung für den symmetrischen Slider --- */
-
-.container-wide {
-    max-width: 1400px; /* Erweitert für weniger "gequetschte" Optik */
+.accordion {
+    max-width: 900px;
     margin: 0 auto;
-    padding: 0 40px;
 }
 
-.horizontal-slider-nav {
+.accordion-item {
+    border-bottom: 1px solid #e1e8ed;
+    background-color: var(--white);
+}
+
+.accordion-header {
+    width: 100%;
+    padding: 20px;
     display: flex;
     align-items: center;
-    gap: 20px;
-}
-
-.arrow-tip-btn {
     background: none;
     border: none;
-    color: #b0b0b0;
-    font-size: 5rem; /* Größer für das breite Layout */
     cursor: pointer;
-    transition: color 0.3s;
-    flex-shrink: 0;
-    user-select: none;
+    text-align: left;
+    transition: background-color 0.3s ease;
 }
 
-.arrow-tip-btn:hover {
-    color: #888;
+.accordion-header:hover {
+    background-color: var(--bg-light);
 }
 
-.slider-perspective {
-    flex: 1;
-    overflow: hidden;
+.accordion-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+/* Plus-Icon Styling */
+.plus-icon {
     position: relative;
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    flex-shrink: 0;
 }
 
-/* WIEDERHERGESTELLTE VERBLASSUNG AN DEN BREITEREN RÄNDERN */
-.slider-perspective::before,
-.slider-perspective::after {
+.plus-icon::before,
+.plus-icon::after {
     content: '';
     position: absolute;
-    top: 0;
-    width: 20%; /* Breite des Verblassungs-Bereichs, jetzt symmetrisch */
-    height: 100%;
-    z-index: 5;
-    pointer-events: none; /* Klicks gehen durch auf die Karten */
+    background-color: var(--accent-color);
+    transition: transform 0.3s ease;
 }
 
-.slider-perspective::before {
+/* Horizontaler Balken */
+.plus-icon::before {
+    top: 50%;
     left: 0;
-    background: linear-gradient(to right, var(--white) 0%, rgba(255,255,255,0) 100%);
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
 }
 
-.slider-perspective::after {
-    right: 0;
-    background: linear-gradient(to left, var(--white) 0%, rgba(255,255,255,0) 100%);
+/* Vertikaler Balken */
+.plus-icon::after {
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
 }
 
-.slider-track {
-    display: flex;
-    gap: 30px;
-    padding: 30px 0;
-    will-change: transform;
-    /* WICHTIG: Kein scroll-snap, da JS steuert */
-    scroll-snap-type: none;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+/* Animation bei Aktivierung */
+.accordion-item.active .plus-icon::after {
+    transform: translateX(-50%) rotate(90deg);
+    opacity: 0;
 }
 
-.slide-item {
-    /* REDUZIERTE BREITE FÜR SYMMETRISCHE RÄNDER */
-    flex: 0 0 calc(27% - 15px); /* Drei Elemente stehen vollständig im Fokus, Ränder sind frei */
-    padding: 40px;
-    background: var(--bg-light);
-    border-radius: 8px;
-    border-top: 5px solid var(--primary-color);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
-    box-sizing: border-box;
-    text-align: left;
+.accordion-item.active .plus-icon::before {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Content-Bereich */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+    padding: 0 60px; /* Einzug passend zum Textstart nach dem Icon */
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 200px; /* Genügend Platz für den Text */
+    padding-bottom: 20px;
+}
+
+.accordion-content p {
+    color: #555;
+    margin: 0;
 }
 
 /* Grundzustand: Auf dem Desktop immer versteckt */
