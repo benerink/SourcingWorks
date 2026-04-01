@@ -30,7 +30,7 @@ body {
 }
 
 .container {
-    max-width: 1100px;
+    max-width: 1700px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -53,6 +53,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px; /* Optional: Passen Sie das vertikale Padding an */
+    width: 100%;
 }
 
 .logo {
@@ -108,6 +109,8 @@ nav ul li a {
     font-weight: 500;
     line-height: 1; /* Verhindert Versatz durch Standard-Zeilenhöhe */
     display: block;
+    font-size: 1.2rem;
+    margin-left: 20px;
 }
 
 nav ul li a:hover {
@@ -122,10 +125,14 @@ section {
 /* --- Hero-Abschnitt: Klassisch mit Hintergrund-Animation --- */
 
 #hero {
-    position: relative; /* Wichtig für die Positionierung des Videos */
-    /* Entfernen Sie das alte background-gradient, falls das Video lädt */
-    /* background: linear-gradient(...); */
-    overflow: hidden; /* Verhindert, dass das Video übersteht */
+    /* Setzt die Höhe auf 100% des sichtbaren Bildschirms */
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 /* --- Fix für die Textanzeige im Hero-Bereich --- */
 #hero .hero-content {
@@ -149,14 +156,12 @@ section {
 
 .back-video {
     position: absolute;
-    right: 0;
-    bottom: 0;
     min-width: 100%;
     min-height: 100%;
     z-index: -1; /* Schiebt das Video hinter den Inhalt */
     object-fit: cover; /* Sorgt dafür, dass das Video den Container füllt */
     /* OPTIONAL: Ein dunkles Overlay, damit der Text lesbar bleibt */
-    filter: brightness(0.6);
+    filter: brightness(0.2);
 }
 
 @keyframes consultingGradientShift {
@@ -399,28 +404,23 @@ article {
     position: relative;
     display: flex;
     align-items: center;
+    overflow: hidden; /* Stellt sicher, dass keine Scrollbalken entstehen */
 }
 
-/* Der Container, der sich bewegt */
 .logo-slider-track {
     display: flex;
-    /* Berechnete Breite: (Anzahl Logos * Breite) + (Anzahl Gaps * Gap-Breite) */
-    /* Hier: (12 * 200px) + (11 * 40px) = 2840px. Wir nutzen calc() für Flexibilität */
-    width: calc(12 * 240px); /* 12 Slides * (200px + 40px gap) */
-    gap: 40px; /* Abstand zwischen den Logos */
-
-    /* Animation aufrufen: Dauer 40s, linear, unendlich */
+    /* Nutzt die tatsächliche Breite der Logos anstatt einer manuellen Rechnung */
+    width: max-content;
+    gap: 40px;
     animation: scrollLogos 40s linear infinite;
 }
 
-/* Stoppt die Animation beim Hover */
 .logo-slider-track:hover {
     animation-play-state: paused;
 }
 
-/* Einzelner Slide-Container */
 .slide {
-    flex: 0 0 200px; /* Feste Breite pro Logo-Container */
+    flex: 0 0 200px;
     width: 200px;
     height: 100px;
     display: flex;
@@ -429,11 +429,11 @@ article {
 }
 
 .slide img {
-    max-height: 70px; /* Maximale Höhe des Logos */
-    max-width: 100%; /* Verhindert Überlaufen */
+    max-height: 70px;
+    max-width: 100%;
     height: auto;
     width: auto;
-    filter: grayscale(100%); /* Professioneller Look */
+    filter: grayscale(100%);
     opacity: 0.6;
     transition: filter 0.3s ease, opacity 0.3s ease;
 }
@@ -443,16 +443,14 @@ article {
     opacity: 1;
 }
 
-/* Definition der unendlichen Scroll-Animation */
 @keyframes scrollLogos {
     0% {
-        /* Startposition */
         transform: translateX(0);
     }
     100% {
-        /* Endposition: Exakt die Hälfte der Track-Breite nach links verschieben */
-        /* calc(Anzahl Original-Logos * -(LogoBreite + Gap)) */
-        transform: translateX(calc(6 * -240px));
+        /* Die Verschiebung muss exakt die Hälfte des Tracks (6 Logos + 6 Gaps) betragen */
+        /* 6 * (200px Logo + 40px Gap) = 1440px */
+        transform: translateX(-1440px);
     }
 }
 
@@ -598,6 +596,41 @@ article {
     .slider-perspective::before,
     .slider-perspective::after {
         width: 10%; /* Weniger Verblassung auf Handys */
+    }
+}
+
+/* Scroll-Down-Arrow */
+.scroll-down-arrow {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    animation: bounce 2s infinite;
+}
+
+.scroll-down-arrow:hover {
+    opacity: 1;
+}
+
+.scroll-down-arrow svg {
+    display: block;
+    /* Ein mittleres Grau, das auf dem dunklen Video gut sichtbar ist */
+    stroke: #aaaaaa;
+}
+
+/* Animation für das dezente Hüpfen */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
     }
 }
 
